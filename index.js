@@ -8,6 +8,9 @@
 
         if (!card || !inner) return;
 
+        // Only enable pointer tilt on devices with a fine pointer (mouse) and sufficient width.
+        const canTilt = window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900;
+
         // Pointer-based tilt effect
         const bounds = { w: 0, h: 0 };
 
@@ -47,13 +50,25 @@
             setTimeout(() => inner.style.transition = '', 500);
         }
 
-        // Attach events
-        updateBounds();
-        window.addEventListener('resize', updateBounds);
-        card.addEventListener('mousemove', onPointerMove);
-        card.addEventListener('touchmove', onPointerMove, { passive: true });
-        card.addEventListener('mouseleave', resetTilt);
-        card.addEventListener('touchend', resetTilt);
+            // Attach events
+            updateBounds();
+            window.addEventListener('resize', () => {
+                updateBounds();
+                // recalc tilt capability on resize
+                // if viewport becomes smaller, ensure tilt is reset
+                if (!(window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900)) resetTilt();
+            });
+
+            if (canTilt && !prefersReduced) {
+                card.addEventListener('mousemove', onPointerMove);
+                card.addEventListener('touchmove', onPointerMove, { passive: true });
+                card.addEventListener('mouseleave', resetTilt);
+                card.addEventListener('touchend', resetTilt);
+            } else {
+                // ensure no transforms if we don't tilt (touch devices / small screens)
+                inner.style.transform = '';
+                inner.style.boxShadow = '';
+            }
 
         // Keyboard accessibility: slightly lift card when focused via tab
         const links = card.querySelectorAll('.link-button');
