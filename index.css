@@ -1,0 +1,64 @@
+/* Import a nice font from Google Fonts (Optional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2); /* A nice gradient background */
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Makes the image circular */
+    border: 5px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.profile-name {
+    font-size: 2em;
+    margin: 20px 0 10px;
+}
+
+.bio {
+    font-size: 1em;
+    margin-bottom: 30px;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between the buttons */
+}
+
+.link-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 30px; /* Rounded buttons */
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* Add a hover effect for interactivity */
+.link-button:hover {
+    background-color: #fff;
+    color: #764ba2;
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
