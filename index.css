@@ -20,7 +20,7 @@ body {
 }
 
 body {
-    padding: 40px;
+    margin: 0;
     font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 92, 255, 0.12), transparent 12%),
         radial-gradient(1000px 500px at 90% 90%, rgba(0, 212, 255, 0.08), transparent 12%),
@@ -29,13 +29,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    /* fluid padding: small on phones, larger on desktop */
+    padding: clamp(12px, 4vw, 40px);
 }
 
 .scene {
     position: relative;
     width: 100%;
-    max-width: 760px
+    max-width: 820px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* center vertically in viewport */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .bg-blob {
@@ -72,20 +78,23 @@ body {
 
 .card-inner {
     width: 100%;
-    max-width: 600px;
+    max-width: 680px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
     border-radius: 22px;
-    padding: 36px 28px;
+    padding: clamp(18px, 3.5vw, 36px) clamp(16px, 3vw, 28px);
     box-shadow: var(--card-shadow);
     transform-style: preserve-3d;
     transition: transform 400ms cubic-bezier(.2, .9, .2, 1), box-shadow 250ms ease;
     border: 1px solid rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(8px) saturate(1.1);
+    /* constrain height so card fits on small screens; inner scroll if necessary */
+    max-height: calc(100vh - 64px);
+    overflow: auto;
 }
 
 .profile-pic {
-    width: 140px;
-    height: 140px;
+    width: clamp(88px, 16vw, 140px);
+    height: clamp(88px, 16vw, 140px);
     object-fit: cover;
     border-radius: 50%;
     border: 6px solid rgba(255, 255, 255, 0.08);
@@ -97,15 +106,15 @@ body {
     transform: translateZ(60px);
 }
 
-.profile-name {
-    font-size: 1.9rem;
+.profile-name{
+    font-size: clamp(1.1rem, 4vw, 1.9rem);
     margin: 18px 0 6px;
     letter-spacing: 1px;
     transform: translateZ(45px);
 }
 
-.bio {
-    font-size: 0.98rem;
+.bio{
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
     color: rgba(230, 238, 248, 0.85);
     margin-bottom: 20px;
     transform: translateZ(30px)
@@ -136,6 +145,7 @@ body {
     box-shadow: 0 6px 22px rgba(2, 6, 23, 0.45);
     transition: transform 220ms cubic-bezier(.2, .9, .2, 1), box-shadow 180ms ease, filter 180ms ease;
     transform-origin: center;
+    font-size: clamp(0.95rem, 2.6vw, 1.05rem);
 }
 
 /* Make sure links are easy to tap on small devices */
@@ -180,35 +190,23 @@ body {
 }
 
 /* Tablet breakpoint (iPad portrait / small tablets) */
-@media (max-width:900px) {
-    .scene {
-        max-width: 680px
-    }
+@media (max-width:1024px) {
+    .scene { max-width: 720px }
+    .card-inner { max-width: 640px }
+    .bg-blob { width: 380px; height: 380px; filter: blur(48px) }
+    .blob1 { right: -70px; top: -110px }
+    .blob2 { left: -90px; bottom: -130px }
+    .link-button { max-width: 520px }
+}
 
-    .card-inner {
-        max-width: 560px;
-        padding: 28px
-    }
-
-    .bg-blob {
-        width: 360px;
-        height: 360px;
-        filter: blur(50px)
-    }
-
-    .blob1 {
-        right: -60px;
-        top: -100px
-    }
-
-    .blob2 {
-        left: -80px;
-        bottom: -120px
-    }
-
-    .link-button {
-        max-width: 480px
-    }
+/* Reduce visuals and ensure fit for smaller phones */
+@media (max-width:600px) {
+    .bg-blob { display:none }
+    .card-inner { max-width:98%; padding:16px; max-height: calc(100vh - 48px) }
+    .profile-pic { width:92px; height:92px }
+    .profile-name { font-size:1.15rem }
+    .bio { font-size:0.9rem }
+    .link-button { max-width:100%; padding:12px 14px }
 }
 
 /* Small mobile adjustments */
