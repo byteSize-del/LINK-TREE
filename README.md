@@ -92,7 +92,7 @@ This project is provided under the MIT License. Add a `LICENSE` file to include 
 
 ## Connect
 
-Share your profiles:
+MY profiles:
 
 [![YouTube](https://img.shields.io/badge/youtube-%23FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white)](http://www.youtube.com/@ByteSize-01)
 [![Instagram](https://img.shields.io/badge/instagram-%23E1306C.svg?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/_byte_size_del/?hl=en)
