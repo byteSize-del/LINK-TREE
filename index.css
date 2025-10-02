@@ -40,7 +40,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* center vertically in viewport */
+    min-height: 100vh;
+    /* center vertically in viewport */
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
@@ -106,14 +107,14 @@ body {
     transform: translateZ(60px);
 }
 
-.profile-name{
+.profile-name {
     font-size: clamp(1.1rem, 4vw, 1.9rem);
     margin: 18px 0 6px;
     letter-spacing: 1px;
     transform: translateZ(45px);
 }
 
-.bio{
+.bio {
     font-size: clamp(0.9rem, 2.5vw, 1rem);
     color: rgba(230, 238, 248, 0.85);
     margin-bottom: 20px;
@@ -191,22 +192,64 @@ body {
 
 /* Tablet breakpoint (iPad portrait / small tablets) */
 @media (max-width:1024px) {
-    .scene { max-width: 720px }
-    .card-inner { max-width: 640px }
-    .bg-blob { width: 380px; height: 380px; filter: blur(48px) }
-    .blob1 { right: -70px; top: -110px }
-    .blob2 { left: -90px; bottom: -130px }
-    .link-button { max-width: 520px }
+    .scene {
+        max-width: 720px
+    }
+
+    .card-inner {
+        max-width: 640px
+    }
+
+    .bg-blob {
+        width: 380px;
+        height: 380px;
+        filter: blur(48px)
+    }
+
+    .blob1 {
+        right: -70px;
+        top: -110px
+    }
+
+    .blob2 {
+        left: -90px;
+        bottom: -130px
+    }
+
+    .link-button {
+        max-width: 520px
+    }
 }
 
 /* Reduce visuals and ensure fit for smaller phones */
 @media (max-width:600px) {
-    .bg-blob { display:none }
-    .card-inner { max-width:98%; padding:16px; max-height: calc(100vh - 48px) }
-    .profile-pic { width:92px; height:92px }
-    .profile-name { font-size:1.15rem }
-    .bio { font-size:0.9rem }
-    .link-button { max-width:100%; padding:12px 14px }
+    .bg-blob {
+        display: none
+    }
+
+    .card-inner {
+        max-width: 98%;
+        padding: 16px;
+        max-height: calc(100vh - 48px)
+    }
+
+    .profile-pic {
+        width: 92px;
+        height: 92px
+    }
+
+    .profile-name {
+        font-size: 1.15rem
+    }
+
+    .bio {
+        font-size: 0.9rem
+    }
+
+    .link-button {
+        max-width: 100%;
+        padding: 12px 14px
+    }
 }
 
 /* Small mobile adjustments */
@@ -286,4 +329,68 @@ body {
 
 .card-inner {
     animation: floatIn 600ms cubic-bezier(.2, .9, .2, 1) both
+}
+
+/* Card footer layout for counters */
+.card-footer {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 18px;
+    align-items: center
+}
+
+.visitor-counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(230, 238, 248, 0.9);
+    font-weight: 600
+}
+
+.visitor-counter .vc-label {
+    font-size: 0.85rem;
+    opacity: 0.9
+}
+
+.vc-digits {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: monospace;
+    font-size: 1rem;
+    min-width: 56px;
+    text-align: center;
+    box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.12)
+}
+
+.online-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(200, 230, 255, 0.95);
+    font-weight: 700
+}
+
+.online-counter .oc-label {
+    font-size: 0.82rem;
+    opacity: 0.95
+}
+
+.oc-count {
+    background: linear-gradient(90deg, #00d4ff, #7c5cff);
+    color: #061226;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    min-width: 42px;
+    text-align: center
+}
+
+@media (max-width:420px) {
+    .card-footer {
+        flex-direction: column;
+        gap: 8px
+    }
 }
