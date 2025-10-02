@@ -2,6 +2,23 @@
     // Respect users' motion preferences
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /*
+        OPTIONAL: Realtime online visitor presence using Firebase Realtime Database.
+        To enable, create a Firebase project, enable Realtime Database, then set
+        the FIREBASE_CONFIG below with your project's config object.
+        Example:
+        const FIREBASE_CONFIG = {
+            apiKey: "...",
+            authDomain: "...",
+            databaseURL: "https://<your-db>.firebaseio.com",
+            projectId: "...",
+            storageBucket: "...",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+    */
+    const FIREBASE_CONFIG = null; // <-- replace null with your Firebase config object to enable realtime presence
+
     document.addEventListener('DOMContentLoaded', () => {
         const card = document.getElementById('card');
         const inner = card && card.querySelector('.card-inner');
@@ -50,25 +67,25 @@
             setTimeout(() => inner.style.transition = '', 500);
         }
 
-            // Attach events
+        // Attach events
+        updateBounds();
+        window.addEventListener('resize', () => {
             updateBounds();
-            window.addEventListener('resize', () => {
-                updateBounds();
-                // recalc tilt capability on resize
-                // if viewport becomes smaller, ensure tilt is reset
-                if (!(window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900)) resetTilt();
-            });
+            // recalc tilt capability on resize
+            // if viewport becomes smaller, ensure tilt is reset
+            if (!(window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900)) resetTilt();
+        });
 
-            if (canTilt && !prefersReduced) {
-                card.addEventListener('mousemove', onPointerMove);
-                card.addEventListener('touchmove', onPointerMove, { passive: true });
-                card.addEventListener('mouseleave', resetTilt);
-                card.addEventListener('touchend', resetTilt);
-            } else {
-                // ensure no transforms if we don't tilt (touch devices / small screens)
-                inner.style.transform = '';
-                inner.style.boxShadow = '';
-            }
+        if (canTilt && !prefersReduced) {
+            card.addEventListener('mousemove', onPointerMove);
+            card.addEventListener('touchmove', onPointerMove, { passive: true });
+            card.addEventListener('mouseleave', resetTilt);
+            card.addEventListener('touchend', resetTilt);
+        } else {
+            // ensure no transforms if we don't tilt (touch devices / small screens)
+            inner.style.transform = '';
+            inner.style.boxShadow = '';
+        }
 
         // Keyboard accessibility: slightly lift card when focused via tab
         const links = card.querySelectorAll('.link-button');
@@ -85,5 +102,42 @@
         if (prefersReduced) {
             card.classList.add('reduced-motion');
         }
+
+        /* ---------------- Firebase Realtime Presence (optional) ---------------- */
+        (function setupFirebasePresence() {
+            if (!FIREBASE_CONFIG) return; // no config provided
+            if (typeof firebase === 'undefined' || !firebase.database) {
+                console.warn('Firebase SDK not loaded or incompatible. Presence disabled.');
+                return;
+            }
+
+            try {
+                const app = firebase.initializeApp(FIREBASE_CONFIG);
+                const db = firebase.database();
+                const presenceRef = db.ref('presence');
+
+                // Create a unique id for this client
+                const clientId = `c_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+                const myRef = presenceRef.child(clientId);
+
+                // Set presence when connected; remove on disconnect
+                const connectedRef = db.ref('.info/connected');
+                connectedRef.on('value', snap => {
+                    if (snap.val() === true) {
+                        myRef.set({ ts: firebase.database.ServerValue.TIMESTAMP });
+                        myRef.onDisconnect().remove();
+                    }
+                });
+
+                // Listen for presence count changes
+                presenceRef.on('value', snapshot => {
+                    const count = snapshot.numChildren();
+                    const el = document.getElementById('online-count');
+                    if (el) el.textContent = String(count);
+                });
+            } catch (err) {
+                console.warn('Firebase presence setup failed', err);
+            }
+        })();
     });
 })();
