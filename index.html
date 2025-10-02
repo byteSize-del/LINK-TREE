@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYTE SIZE | Links</title>
     <link rel="stylesheet" href="index.css">
+    <!-- Firebase (Realtime Presence) - add your config in index.js -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
+
 <body>
 
     <div class="scene">
@@ -22,9 +27,23 @@
 
                 <div class="links-container" role="navigation" aria-label="Links">
                     <a href="#" class="link-button">My Website & Blog</a>
-                    <a href="http://www.youtube.com/@ByteSize-01" target="_blank" rel="noopener" class="link-button">YouTube Channel</a>
-                    <a href="https://www.instagram.com/_byte_size_del/?hl=en" target="_blank" rel="noopener" class="link-button">Follow me on Instagram</a>
+                    <a href="http://www.youtube.com/@ByteSize-01" target="_blank" rel="noopener"
+                        class="link-button">YouTube Channel</a>
+                    <a href="https://www.instagram.com/_byte_size_del/?hl=en" target="_blank" rel="noopener"
+                        class="link-button">Follow me on Instagram</a>
                     <a href="#" class="link-button">My Portfolio</a>
+                </div>
+
+                <div class="card-footer">
+                    <div class="visitor-counter" aria-live="polite" title="Total visitors">
+                        <span class="vc-label">Visitors</span>
+                        <div id="visitor-digits" class="vc-digits" aria-hidden="false">000</div>
+                    </div>
+
+                    <div class="online-counter" aria-live="polite" title="Online visitors">
+                        <span class="oc-label">Online</span>
+                        <span id="online-count" class="oc-count">0</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,4 +51,5 @@
 
     <script src="index.js"></script>
 </body>
+
 </html>
