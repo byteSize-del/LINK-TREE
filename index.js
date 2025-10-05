@@ -2,6 +2,16 @@
     // Respect users' motion preferences
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Detect if device is actually a touch device (works even in desktop mode)
+    const isTouchDevice = ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0);
+
+    // Add class to body for touch devices
+    if (isTouchDevice) {
+        document.documentElement.classList.add('touch-device');
+    }
+
     /*
         OPTIONAL: Realtime online visitor presence using Firebase Realtime Database.
         To enable, create a Firebase project, enable Realtime Database, then set
@@ -31,7 +41,7 @@
         // Typing animation for bio text - only on desktop
         const bioElement = document.getElementById('bio-text');
         const bioText = '[ ACCESSING NEURAL LINK... WELCOME TO BYTE SIZE HUB ]';
-        
+
         if (!isMobile && !prefersReduced) {
             let bioIndex = 0;
 
@@ -59,15 +69,15 @@
 
         // Random glitch effect on profile name - only on desktop
         const nameElement = document.getElementById('profile-name');
-        
+
         if (!isMobile && !prefersReduced) {
             function glitchEffect() {
                 if (!nameElement) return;
-                
+
                 const originalText = 'BYTE SIZE';
                 const glitchChars = '█▓▒░!@#$%^&*';
                 let iterations = 0;
-                
+
                 const interval = setInterval(() => {
                     nameElement.textContent = originalText
                         .split('')
@@ -78,9 +88,9 @@
                             return glitchChars[Math.floor(Math.random() * glitchChars.length)];
                         })
                         .join('');
-                    
-                    iterations += 1/3;
-                    
+
+                    iterations += 1 / 3;
+
                     if (iterations >= originalText.length) {
                         clearInterval(interval);
                         nameElement.textContent = originalText;
