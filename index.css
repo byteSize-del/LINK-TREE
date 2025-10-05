@@ -47,7 +47,13 @@ body {
     justify-content: center;
     padding: clamp(12px, 4vw, 40px);
     position: relative;
-    animation: gridPulse 4s ease-in-out infinite;
+}
+
+/* Only animate grid on larger screens */
+@media (min-width: 769px) {
+    body {
+        animation: gridPulse 4s ease-in-out infinite;
+    }
 }
 
 /* Animated scanlines effect */
@@ -68,6 +74,13 @@ body::before {
     pointer-events: none;
     z-index: 9999;
     animation: scanlines 8s linear infinite;
+}
+
+/* Disable scanlines on mobile for performance */
+@media (max-width: 768px) {
+    body::before {
+        display: none;
+    }
 }
 
 /* Vignette effect */
@@ -114,7 +127,6 @@ body::after {
     filter: blur(80px);
     opacity: 0.4;
     z-index: 0;
-    animation: float 6s ease-in-out infinite;
     border-radius: 50%;
 }
 
@@ -122,14 +134,27 @@ body::after {
     right: -50px;
     top: -80px;
     background: radial-gradient(circle, var(--hud-primary), transparent);
-    animation-delay: 0s;
 }
 
 .blob2 {
     left: -50px;
     bottom: -80px;
     background: radial-gradient(circle, var(--hud-secondary), transparent);
-    animation-delay: 3s;
+}
+
+/* Only animate blobs on larger screens */
+@media (min-width: 769px) {
+    .bg-blob {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .blob1 {
+        animation-delay: 0s;
+    }
+    
+    .blob2 {
+        animation-delay: 3s;
+    }
 }
 
 @keyframes float {
@@ -177,6 +202,17 @@ body::after {
     );
 }
 
+/* Simplified card styling on mobile for performance */
+@media (max-width: 768px) {
+    .card-inner {
+        background: linear-gradient(135deg, var(--hud-panel), rgba(0, 26, 41, 0.9));
+        backdrop-filter: blur(8px);
+        box-shadow: 
+            0 0 20px rgba(0, 240, 255, 0.2),
+            0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+}
+
 /* Corner brackets decoration */
 .card-inner::before,
 .card-inner::after {
@@ -208,6 +244,15 @@ body::after {
 @keyframes cornerPulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+}
+
+/* Disable corner bracket animations on mobile */
+@media (max-width: 768px) {
+    .card-inner::before,
+    .card-inner::after {
+        animation: none;
+        opacity: 0.7;
+    }
 }
 
 /* HUD Status Bar */
@@ -273,6 +318,13 @@ body::after {
     50% { opacity: 1; filter: drop-shadow(0 0 15px var(--hud-primary)); }
 }
 
+/* Disable profile frame animation on mobile */
+@media (max-width: 768px) {
+    .profile-frame {
+        display: none;
+    }
+}
+
 @media (max-width: 640px) {
     .hud-status-bar {
         margin: -20px -20px 20px -20px;
@@ -303,8 +355,14 @@ body::after {
         inset 0 0 30px rgba(0, 240, 255, 0.2),
         0 20px 50px rgba(0, 0, 0, 0.8);
     transform: translateZ(60px);
-    animation: hexagonRotate 20s linear infinite, profileGlow 3s ease-in-out infinite;
     filter: brightness(1.1) contrast(1.2);
+}
+
+/* Only animate profile pic on larger screens */
+@media (min-width: 769px) {
+    .profile-pic {
+        animation: hexagonRotate 20s linear infinite, profileGlow 3s ease-in-out infinite;
+    }
 }
 
 .profile-pic::before {
@@ -316,7 +374,20 @@ body::after {
     z-index: -1;
     filter: blur(20px);
     opacity: 0.6;
-    animation: rotateBorder 4s linear infinite;
+}
+
+/* Only rotate border on larger screens */
+@media (min-width: 769px) {
+    .profile-pic::before {
+        animation: rotateBorder 4s linear infinite;
+    }
+}
+
+/* Disable ::before element on mobile for performance */
+@media (max-width: 768px) {
+    .profile-pic::before {
+        display: none;
+    }
 }
 
 @keyframes hexagonRotate {
@@ -347,8 +418,14 @@ body::after {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-    animation: textGlitch 5s ease-in-out infinite;
     position: relative;
+}
+
+/* Only animate text glitch on larger screens */
+@media (min-width: 769px) {
+    .profile-name {
+        animation: textGlitch 5s ease-in-out infinite;
+    }
 }
 
 @keyframes textGlitch {
@@ -408,21 +485,23 @@ body::after {
     clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
 }
 
-/* Animated border effect */
-.link-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--hud-glow), transparent);
-    transition: left 500ms ease;
-    pointer-events: none;
-}
+/* Animated border effect - only on desktop */
+@media (min-width: 769px) {
+    .link-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, var(--hud-glow), transparent);
+        transition: left 500ms ease;
+        pointer-events: none;
+    }
 
-.link-button:hover::before {
-    left: 100%;
+    .link-button:hover::before {
+        left: 100%;
+    }
 }
 
 /* Corner indicator */
@@ -521,11 +600,13 @@ body::after {
 /* Reduce visuals and ensure fit for smaller phones */
 @media (max-width:600px) {
     body {
-        background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        /* Simplified background for mobile performance */
+        background: linear-gradient(135deg, #000814 0%, #001d3d 50%, #000814 100%);
+        background-attachment: scroll;
     }
 
     .bg-blob {
-        opacity: 0.2;
+        display: none;
     }
 
     .card-inner {
