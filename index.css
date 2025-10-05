@@ -35,10 +35,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(16px, 4vw, 48px);
+    padding: 20px;
     position: relative;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 16px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
 }
 
 /* Subtle accent glow on desktop */
@@ -63,9 +76,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .scene {
+        max-width: 100%;
+    }
 }
 
 /* Remove blob decorations for minimal design */
@@ -87,14 +104,30 @@ body {
     max-width: 480px;
     background: var(--bg-card);
     border-radius: 16px;
-    padding: clamp(32px, 5vw, 48px);
+    padding: 40px;
     box-shadow:
         0 4px 6px -1px var(--shadow-sm),
         0 2px 4px -1px var(--shadow-md);
     transition: transform 200ms ease, box-shadow 200ms ease;
     border: 1px solid var(--border-subtle);
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+}
+
+@media (max-width: 768px) {
+    .card-inner {
+        padding: 32px 24px;
+        border-radius: 12px;
+        max-height: calc(100vh - 32px);
+    }
+}
+
+@media (max-width: 480px) {
+    .card-inner {
+        padding: 28px 20px;
+        max-height: calc(100vh - 32px);
+    }
 }
 
 /* Subtle top accent line */
@@ -208,7 +241,8 @@ body {
     letter-spacing: -0.02em;
 }
 
-.bio {
+.bio,
+.profile-bio {
     font-size: clamp(0.875rem, 2vw, 0.95rem);
     color: var(--text-secondary);
     margin-bottom: 32px;
@@ -261,138 +295,16 @@ body {
     box-shadow: 0 1px 2px var(--shadow-sm);
 }
 
-/* Responsive tweaks for mobile */
-@media (max-width:640px) {
-    .card-inner {
-        padding: 24px 18px;
-    }
-
-    .profile-pic {
-        width: 100px;
-        height: 100px;
-        border-width: 2px !important;
-    }
-
-    .profile-name {
-        font-size: 1.5rem;
-        letter-spacing: 1px;
-    }
-
-    .link-button {
-        font-size: 0.9rem;
-        padding: 12px 16px;
-    }
-
-    .hud-status-bar {
-        padding: 8px 14px;
-        font-size: 0.6rem;
-    }
-}
-
-/* Tablet breakpoint (iPad portrait / small tablets) */
-@media (max-width:1024px) {
-    .scene {
-        max-width: 750px;
-    }
-
-    .card-inner {
-        max-width: 680px;
-    }
-
-    .bg-blob {
-        width: 250px;
-        height: 250px;
-        filter: blur(60px);
-    }
-
-    .blob1 {
-        right: -50px;
-        top: -80px;
-    }
-
-    .blob2 {
-        left: -50px;
-        bottom: -80px;
-    }
-
-    .link-button {
-        max-width: 560px;
-    }
-}
-
-/* Reduce visuals and ensure fit for smaller phones */
-@media (max-width:600px) {
-    body {
-        /* Simplified background for mobile performance */
-        background: linear-gradient(135deg, #000814 0%, #001d3d 50%, #000814 100%);
-        background-attachment: scroll;
-    }
-
-    .bg-blob {
-        display: none;
-    }
-
-    .card-inner {
-        max-width: 98%;
-        padding: 24px 16px;
-        max-height: calc(100vh - 48px);
-    }
-
-    .profile-pic {
-        width: 100px;
-        height: 100px;
-    }
-
-    .profile-name {
-        font-size: 1.4rem;
-        letter-spacing: 2px;
-    }
-
-    .bio {
-        font-size: 0.95rem;
-    }
-
-    .link-button {
-        max-width: 100%;
-        padding: 14px 16px;
-        clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
-    }
-
-    .card-footer {
-        flex-direction: column;
-        gap: 16px;
-    }
-}
-
-/* Small mobile adjustments */
-@media (max-width:420px) {
-    body {
-        padding: 16px;
-    }
-
-    .scene {
-        max-width: 100%;
-    }
-
-    .card-inner {
-        padding: 20px 14px;
-        clip-path: polygon(0 20px, 20px 0,
-                calc(100% - 20px) 0, 100% 20px,
-                100% calc(100% - 20px), calc(100% - 20px) 100%,
-                20px 100%, 0 calc(100% - 20px));
-    }
-
-    .card-inner::before,
-    .card-inner::after {
-        width: 40px;
-        height: 40px;
-    }
-
+/* Responsive: Small phones */
+@media (max-width: 480px) {
     .profile-pic {
         width: 90px;
         height: 90px;
-        border-width: 3px;
-        transform: translateZ(40px);
+    }
+
+    .hud-status-bar {
+        font-size: 0.65rem;
+        margin-bottom: 24px;
     }
 
     .profile-name {
@@ -554,18 +466,25 @@ body {
     }
 }
 
-/* Mobile optimization - minimal adjustments */
-@media (max-width: 768px) {
-    .card-inner {
-        padding: 32px 20px;
-    }
-
+/* Additional mobile typography adjustments */
+@media (max-width: 640px) {
     .profile-name {
         font-size: 1.75rem;
     }
 
+    .bio,
     .profile-bio {
         font-size: 0.875rem;
+        margin-bottom: 24px;
+    }
+
+    .link-button {
+        font-size: 0.9rem;
+        padding: 14px 20px;
+    }
+
+    .card-footer {
+        gap: 16px;
     }
 }
 
