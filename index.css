@@ -35,10 +35,12 @@ body {
     justify-content: center;
     padding: clamp(12px, 4vw, 40px);
     position: relative;
+    background: #001d3d;
+    /* Default simple background */
 }
 
-/* Full effects only on desktop */
-@media (min-width: 769px) {
+/* Full effects only on desktop with mouse (not touch devices) */
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     body {
         background:
             repeating-linear-gradient(0deg, transparent, transparent 2px, var(--hud-grid) 2px, var(--hud-grid) 4px),
@@ -52,22 +54,15 @@ body {
     }
 }
 
-/* Simple solid background for mobile */
-@media (max-width: 768px) {
-    body {
-        background: #001d3d;
-    }
-}
-
-/* Only animate grid on larger screens */
-@media (min-width: 769px) {
+/* Only animate grid on larger screens with mouse */
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     body {
         animation: gridPulse 4s ease-in-out infinite;
     }
 }
 
 /* Animated scanlines effect - desktop only */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     body::before {
         content: '';
         position: fixed;
@@ -157,8 +152,8 @@ body {
     background: radial-gradient(circle, var(--hud-secondary), transparent);
 }
 
-/* Only animate blobs on larger screens */
-@media (min-width: 769px) {
+/* Only animate blobs on larger screens with mouse */
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .bg-blob {
         animation: float 6s ease-in-out infinite;
     }
@@ -403,7 +398,7 @@ body {
 }
 
 /* Desktop styling */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .profile-pic {
         border-radius: 0;
         clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
@@ -439,7 +434,7 @@ body {
 }
 
 /* Only rotate border on larger screens */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .profile-pic::before {
         animation: rotateBorder 4s linear infinite;
     }
@@ -494,7 +489,7 @@ body {
 }
 
 /* Desktop styling with effects */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .profile-name {
         letter-spacing: 4px;
         transform: translateZ(45px);
@@ -581,7 +576,7 @@ body {
 }
 
 /* Desktop styling */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .link-button {
         background: linear-gradient(135deg, rgba(0, 26, 41, 0.8), rgba(0, 13, 20, 0.9));
         border: 2px solid var(--hud-border);
@@ -611,7 +606,7 @@ body {
 }
 
 /* Animated border effect - only on desktop */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .link-button::before {
         content: '';
         position: absolute;
@@ -630,7 +625,7 @@ body {
 }
 
 /* Corner indicator - desktop only */
-@media (min-width: 769px) {
+@media (min-width: 769px) and (hover: hover) and (pointer: fine) {
     .link-button::after {
         content: '▸';
         font-size: 1.2rem;
@@ -1078,4 +1073,74 @@ body {
                 100% calc(100% - 20px), calc(100% - 20px) 100%,
                 20px 100%, 0 calc(100% - 20px)) !important;
     }
+}
+
+/* Touch device optimization - applies even in desktop mode on phones */
+.touch-device * {
+    animation: none !important;
+}
+
+.touch-device body {
+    background: #001d3d !important;
+}
+
+.touch-device body::before,
+.touch-device body::after {
+    display: none !important;
+}
+
+.touch-device .bg-blob {
+    display: none !important;
+}
+
+.touch-device .profile-pic {
+    border-radius: 50% !important;
+    border: 3px solid var(--hud-primary) !important;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
+    clip-path: none !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+.touch-device .profile-pic::before {
+    display: none !important;
+}
+
+.touch-device .profile-frame {
+    display: none !important;
+}
+
+.touch-device .profile-name {
+    letter-spacing: 2px !important;
+    color: var(--hud-primary) !important;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3) !important;
+    background: none !important;
+    -webkit-text-fill-color: var(--hud-primary) !important;
+    transform: none !important;
+}
+
+.touch-device .link-button {
+    background: rgba(0, 26, 41, 0.9) !important;
+    border: 2px solid var(--hud-primary) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    clip-path: none !important;
+    transform: none !important;
+}
+
+.touch-device .link-button::before,
+.touch-device .link-button::after {
+    display: none !important;
+}
+
+.touch-device .card-inner {
+    background: rgba(0, 26, 41, 0.95) !important;
+    backdrop-filter: none !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) !important;
+    transform: none !important;
+}
+
+.touch-device .card-inner::before,
+.touch-device .card-inner::after {
+    display: none !important;
 }
