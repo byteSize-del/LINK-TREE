@@ -19,11 +19,19 @@
 
         <div class="card" id="card" data-tilt>
             <div class="card-inner">
-                <img src="main image.png" alt="Profile picture of Byte Size" class="profile-pic">
+                <!-- HUD Status Bar -->
+                <div class="hud-status-bar" aria-hidden="true">
+                    <span class="status-text">SYSTEM ONLINE</span>
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="profile-container">
+                    <img src="main image.png" alt="Profile picture of Byte Size" class="profile-pic">
+                    <div class="profile-frame" aria-hidden="true"></div>
+                </div>
 
-                <h1 class="profile-name">BYTE SIZE</h1>
+                <h1 class="profile-name" id="profile-name">BYTE SIZE</h1>
 
-                <p class="bio">Welcome to my page! Check out my links below.</p>
+                <p class="bio" id="bio-text">[ ACCESSING NEURAL LINK... WELCOME TO BYTE SIZE HUB ]</p>
 
                 <div class="links-container" role="navigation" aria-label="Links">
                     <a href="#" class="link-button">My Website & Blog</a>
@@ -35,7 +43,7 @@
                         class="link-button">3D Login Form</a>
                     <a href="https://bytesize-del.github.io/BUTTON/" target="_blank" rel="noopener"
                         class="link-button">Electric button</a>
-                      <a href="https://bytesize-del.github.io/CUBE-LOGIN-FORM/" target="_blank" rel="noopener"
+                    <a href="https://bytesize-del.github.io/CUBE-LOGIN-FORM/" target="_blank" rel="noopener"
                         class="link-button">3D CUBE FORM</a>
                     <a href="#" class="link-button">My Portfolio</a>
                 </div>
@@ -59,9 +67,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
