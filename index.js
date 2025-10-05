@@ -105,7 +105,7 @@
         }
 
         // Only enable pointer tilt on devices with a fine pointer (mouse) and sufficient width.
-        const canTilt = window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900;
+        const canTilt = window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900 && !prefersReduced;
 
         // Pointer-based tilt effect
         const bounds = { w: 0, h: 0 };
