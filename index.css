@@ -72,7 +72,7 @@ body {
 .scene {
     position: relative;
     width: 100%;
-    max-width: 520px;
+    max-width: 720px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,10 +101,10 @@ body {
 /* Minimal card design */
 .card-inner {
     width: 100%;
-    max-width: 480px;
+    max-width: 680px;
     background: var(--bg-card);
     border-radius: 16px;
-    padding: 40px;
+    padding: 32px 48px;
     box-shadow:
         0 4px 6px -1px var(--shadow-sm),
         0 2px 4px -1px var(--shadow-md);
@@ -112,12 +112,12 @@ body {
     border: 1px solid var(--border-subtle);
     position: relative;
     overflow-y: auto;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 80px);
 }
 
 @media (max-width: 768px) {
     .card-inner {
-        padding: 32px 24px;
+        padding: 28px 24px;
         border-radius: 12px;
         max-height: calc(100vh - 32px);
     }
@@ -125,7 +125,7 @@ body {
 
 @media (max-width: 480px) {
     .card-inner {
-        padding: 28px 20px;
+        padding: 24px 20px;
         max-height: calc(100vh - 32px);
     }
 }
@@ -160,7 +160,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 0;
-    margin: 0 0 32px 0;
+    margin: 0 0 20px 0;
     background: none;
     border: none;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
@@ -191,7 +191,7 @@ body {
 .profile-container {
     position: relative;
     width: fit-content;
-    margin: 0 auto 24px;
+    margin: 0 auto 16px;
 }
 
 .profile-frame {
@@ -201,7 +201,7 @@ body {
 
 @media (max-width: 640px) {
     .hud-status-bar {
-        margin: -20px -20px 20px -20px;
+        margin: -20px -20px 16px -20px;
         padding: 10px 16px;
         font-size: 0.65rem;
     }
@@ -209,13 +209,13 @@ body {
 
 @media (max-width: 420px) {
     .hud-status-bar {
-        margin: -20px -14px 20px -14px;
+        margin: -20px -14px 16px -14px;
     }
 }
 
 .profile-pic {
-    width: clamp(96px, 20vw, 112px);
-    height: clamp(96px, 20vw, 112px);
+    width: clamp(80px, 18vw, 100px);
+    height: clamp(80px, 18vw, 100px);
     object-fit: cover;
     display: block;
     margin: 0 auto;
@@ -232,8 +232,8 @@ body {
 }
 
 .profile-name {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    margin: 20px 0 6px;
+    font-size: clamp(1.5rem, 5vw, 1.85rem);
+    margin: 14px 0 4px;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-weight: 700;
     color: var(--text-primary);
@@ -245,7 +245,7 @@ body {
 .profile-bio {
     font-size: clamp(0.875rem, 2vw, 0.95rem);
     color: var(--text-secondary);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     font-weight: 400;
     letter-spacing: 0.01em;
     text-align: center;
@@ -255,7 +255,7 @@ body {
 .links-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: stretch;
     width: 100%;
 }
@@ -266,7 +266,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 14px 20px;
+    padding: 12px 20px;
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 500;
@@ -380,9 +380,9 @@ body {
     display: flex;
     justify-content: center;
     gap: 24px;
-    margin-top: 32px;
+    margin-top: 24px;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 16px;
     border-top: 1px solid var(--border-subtle);
 }
 
