@@ -25,68 +25,84 @@
 
         if (!card || !inner) return;
 
-        // Typing animation for bio text
+        // Check if device is mobile
+        const isMobile = window.innerWidth <= 768;
+
+        // Typing animation for bio text - only on desktop
         const bioElement = document.getElementById('bio-text');
         const bioText = '[ ACCESSING NEURAL LINK... WELCOME TO BYTE SIZE HUB ]';
-        let bioIndex = 0;
+        
+        if (!isMobile && !prefersReduced) {
+            let bioIndex = 0;
 
-        function typeBio() {
-            if (bioIndex < bioText.length && bioElement) {
-                bioElement.textContent = bioText.substring(0, bioIndex + 1);
-                bioIndex++;
-                setTimeout(typeBio, 50);
-            }
-        }
-
-        // Start typing after a delay
-        setTimeout(() => {
-            if (bioElement) {
-                bioElement.textContent = '';
-                typeBio();
-            }
-        }, 1000);
-
-        // Random glitch effect on profile name
-        const nameElement = document.getElementById('profile-name');
-        function glitchEffect() {
-            if (!nameElement || prefersReduced) return;
-            
-            const originalText = 'BYTE SIZE';
-            const glitchChars = '█▓▒░!@#$%^&*';
-            let iterations = 0;
-            
-            const interval = setInterval(() => {
-                nameElement.textContent = originalText
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iterations) {
-                            return originalText[index];
-                        }
-                        return glitchChars[Math.floor(Math.random() * glitchChars.length)];
-                    })
-                    .join('');
-                
-                iterations += 1/3;
-                
-                if (iterations >= originalText.length) {
-                    clearInterval(interval);
-                    nameElement.textContent = originalText;
+            function typeBio() {
+                if (bioIndex < bioText.length && bioElement) {
+                    bioElement.textContent = bioText.substring(0, bioIndex + 1);
+                    bioIndex++;
+                    setTimeout(typeBio, 50);
                 }
-            }, 30);
+            }
+
+            // Start typing after a delay
+            setTimeout(() => {
+                if (bioElement) {
+                    bioElement.textContent = '';
+                    typeBio();
+                }
+            }, 1000);
+        } else {
+            // Show full text immediately on mobile
+            if (bioElement) {
+                bioElement.textContent = bioText;
+            }
         }
 
-        // Trigger glitch effect on load and periodically
-        setTimeout(glitchEffect, 2000);
-        setInterval(glitchEffect, 15000);
+        // Random glitch effect on profile name - only on desktop
+        const nameElement = document.getElementById('profile-name');
+        
+        if (!isMobile && !prefersReduced) {
+            function glitchEffect() {
+                if (!nameElement) return;
+                
+                const originalText = 'BYTE SIZE';
+                const glitchChars = '█▓▒░!@#$%^&*';
+                let iterations = 0;
+                
+                const interval = setInterval(() => {
+                    nameElement.textContent = originalText
+                        .split('')
+                        .map((char, index) => {
+                            if (index < iterations) {
+                                return originalText[index];
+                            }
+                            return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                        })
+                        .join('');
+                    
+                    iterations += 1/3;
+                    
+                    if (iterations >= originalText.length) {
+                        clearInterval(interval);
+                        nameElement.textContent = originalText;
+                    }
+                }, 30);
+            }
 
-        // Add hover sound effect simulation (visual feedback)
-        const linkButtons = document.querySelectorAll('.link-button');
-        linkButtons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                if (prefersReduced) return;
-                button.style.transition = 'all 150ms ease-out';
+            // Trigger glitch effect on load and periodically
+            setTimeout(glitchEffect, 2000);
+            setInterval(glitchEffect, 15000);
+        }
+
+        // Add hover sound effect simulation (visual feedback) - desktop only
+        if (!isMobile) {
+            const linkButtons = document.querySelectorAll('.link-button');
+            linkButtons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    if (prefersReduced) return;
+                    button.style.transition = 'all 150ms ease-out';
+                });
             });
-        });
+        }
 
         // Only enable pointer tilt on devices with a fine pointer (mouse) and sufficient width.
         const canTilt = window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 900;
